@@ -87,7 +87,7 @@ class TodosController extends Controller
         $todo->description = $request->description;
         $todo->save();
         session()->flash('success', 'Todo updated successfully');
-        return view('todos.show', ['todo' => $todo]);
+        return redirect('/todos/' . $todo->id)->with('todo', $todo);
     }
 
     /**
@@ -113,7 +113,7 @@ class TodosController extends Controller
     {
         $todo->completed = true;
         $todo->save();
-        session()->flash('sucess', 'Todo successfully marked as finished');
+        session()->flash('success', 'Todo successfully marked as finished');
         return redirect('/todos');
     }
 
