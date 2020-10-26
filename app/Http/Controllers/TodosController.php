@@ -14,8 +14,7 @@ class TodosController extends Controller
      */
     public function index()
     {
-        $todos = Todo::all();
-        return view('todos.index')->with('todos', $todos);
+        return view('todos.index', ['todos' => Todo::all()]);
     }
 
     /**
@@ -25,7 +24,7 @@ class TodosController extends Controller
      */
     public function create()
     {
-        //
+        return view('todos.create');
     }
 
     /**
@@ -36,27 +35,32 @@ class TodosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $todo = new Todo();
+        $todo->name = $request->name;
+        $todo->description = $request->description;
+        $todo->completed = false;
+        $todo->save();
+        return redirect('/todos');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Todo  $todo
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Todo $todo)
+    public function show($id)
     {
-        //
+        return view('todos.show', ['todo' => Todo::find($id)]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Todo  $todo
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Todo $todo)
+    public function edit($id)
     {
         //
     }
@@ -65,10 +69,10 @@ class TodosController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Todo  $todo
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Todo $todo)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +80,10 @@ class TodosController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Todo  $todo
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Todo $todo)
+    public function destroy($id)
     {
         //
     }
