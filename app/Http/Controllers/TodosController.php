@@ -116,4 +116,17 @@ class TodosController extends Controller
         session()->flash('sucess', 'Todo successfully marked as finished');
         return redirect('/todos');
     }
+
+    /**
+     * Delete all todos
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function wipe()
+    {
+        foreach (Todo::all() as $todo) {
+            $todo->delete();
+        }
+        return redirect('/todos');
+    }
 }
